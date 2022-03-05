@@ -398,6 +398,9 @@ class Data extends AbstractHelper
     public function sendResponse($apiUrl, $postData)
     {
         //array_walk_recursive($postData,function(&$item){$item=strval($item);});
+        $this->_logger->info("Response Data previous.");
+        $transactionId = $postData["context"]["transaction_id"] ?? "";
+        $entityType = $postData["context"]["action"] ?? "";
         $postBody = json_encode($postData, JSON_UNESCAPED_SLASHES);
         $authorization = $this->_digitalSignature->createAuthorization($postBody);
         if ($authorization["success"] == true) {
